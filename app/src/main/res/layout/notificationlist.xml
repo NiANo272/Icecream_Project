@@ -25,9 +25,10 @@
                 android:id="@+id/foodname" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/expirydate" />
+                android:id="@+id/expirydate"
+                android:gravity="right"/>
 
         </LinearLayout>
 

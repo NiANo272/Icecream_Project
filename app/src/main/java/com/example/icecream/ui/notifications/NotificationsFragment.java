@@ -54,9 +54,11 @@ public class NotificationsFragment extends Fragment {
     public void InitializeFoodData() {
         notificationlist = new ArrayList<SampleData>();
 
-        notificationlist.add(new SampleData("d-3","햄버거","2022.7.3"));
-        notificationlist.add(new SampleData("d-5" ,"피자","2022.6.4"));
-        notificationlist.add(new SampleData("d-1", "치킨","2022.7.15"));
+        notificationlist.add(new SampleData("햄버거","2022.7.3"));
+        notificationlist.add(new SampleData("피자","2022.6.4"));
+        notificationlist.add(new SampleData("치킨","2022.7.15"));
+        notificationlist.add(new SampleData("당근","2022.7.1"));
+        notificationlist.add(new SampleData("사과","2022.7.7"));
     }
 
 

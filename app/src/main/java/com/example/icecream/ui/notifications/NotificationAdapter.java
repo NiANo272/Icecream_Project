@@ -1,6 +1,7 @@
 package com.example.icecream.ui.notifications;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +50,20 @@ public class NotificationAdapter extends BaseAdapter {
 
         dday.setText(sample.get(position).getDday());
         foodname.setText(sample.get(position).getFoodname());
-        expirydate.setText(sample.get(position).getExpirydate());
+        expirydate.setText("유통기한 : "+sample.get(position).getExpirydate());
+
+        String[] dday_split = dday.getText().toString().split("-");
+        if (dday.getText().toString().contains("-")){
+            if (Integer.parseInt(dday_split[1])>7){v.setBackgroundColor(Color.BLUE);}
+            else if (Integer.parseInt(dday_split[1])>=5){v.setBackgroundColor(Color.GREEN);}
+            else {v.setBackgroundColor(Color.YELLOW);}
+        }
+        else if (dday.getText().toString().contains("+")){
+            v.setBackgroundColor(Color.RED);
+        }
+        else {
+            v.setBackgroundColor(Color.YELLOW);
+        }
 
         return v;
     }
