@@ -2,6 +2,7 @@ package com.example.icecream.ui.home;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private GridView gridView = null;
     private HomeGridViewAdapter adapter = null;
+
+    Dialog add_dialog; //커스텀 다이얼로그
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,9 +74,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v){
         //버튼 클릭 이벤트 정의
         if(v.getId() == R.id.btn_add){ //manifests에 <activity android:name=".ui.home.HomeAddLayout" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"> 추가 필요
+            //엑티비티 호출
+            /*
             Intent intent = new Intent(getActivity(), HomeAddLayout.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
+            */
+            //다이얼로그 호출
+            HomeAddDialog homeAddDialog = HomeAddDialog.getInstance();
+            homeAddDialog.show(getChildFragmentManager(), HomeAddDialog.TAG_EVENT_DIALOG);
         }
         else if(v.getId() == R.id.btn_remove){
             Bundle bundle = getArguments();
