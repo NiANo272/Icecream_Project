@@ -21,17 +21,21 @@ import com.example.icecream.R;
 import com.example.icecream.databinding.FragmentHomeBinding;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
 
     private FragmentHomeBinding binding;
 
-    private GridView gridView = null;
-    private HomeGridViewAdapter adapter = null;
+    private GridView gridView;
+    private HomeGridViewAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +44,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        adapter = new HomeGridViewAdapter();
+        gridView = (GridView) root.findViewById(R.id.field_home);
+
+        //파일 읽기
+        String path = "/data/data/com.example.icecream/files/";
+        File file = new File(path);
+        FilenameFilter filter = new FilenameFilter() {
+            @Override
+            public boolean accept(File file, String s) {
+                return s.contains(".txt");
+            }
+
+        };
+        String[] fileNames = file.list(filter);
+        if (fileNames.length > 0) {
+            for (int i = 0; i < (fileNames.length); i++) {
+                String rFile = readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
+                //읽어온 파일 나누기
+                String[] txt_split = rFile.split("\\|");
+                String name = txt_split[0];
+                String category = txt_split[1];
+                int year = Integer.parseInt(txt_split[2]);
+                int month = Integer.parseInt(txt_split[3]);
+                int day = Integer.parseInt(txt_split[4]);
+                //int quantity = Integer.parseInt(txt_split[5]);
+
+                adapter.addItem(new HomeItemInfo(name, category, year, month, day, R.mipmap.ic_launcher_add));
+                gridView.setAdapter(adapter);
+
+            }
+        }
+
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
@@ -54,8 +90,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         btn_sort.setOnClickListener(this);
         btn_category.setOnClickListener(this);
 
-        gridView = (GridView) root.findViewById(R.id.field_home);
-        adapter = new HomeGridViewAdapter();
+//        gridView = (GridView) root.findViewById(R.id.field_home);
+//        adapter = new HomeGridViewAdapter();
 
 
         return root;
