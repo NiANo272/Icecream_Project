@@ -107,9 +107,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     public void onClick(View v){
         //버튼 클릭 이벤트 정의
         if(v.getId() == R.id.btn_add){ //manifests에 <activity android:name=".ui.home.HomeAddLayout" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"> 추가 필요
-            Intent intent = new Intent(getActivity(), HomeAddLayout.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(intent);
+            HomeAddDialog homeAddDialog = HomeAddDialog.getInstance();
+            homeAddDialog.show(getChildFragmentManager(), HomeAddDialog.TAG_EVENT_DIALOG);
         }
         else if(v.getId() == R.id.btn_remove){
             Bundle bundle = getArguments();
