@@ -1,11 +1,8 @@
 package com.example.icecream.ui.home;
 
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -13,12 +10,7 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.icecream.HomeRequestLayout;
 import com.example.icecream.R;
-
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

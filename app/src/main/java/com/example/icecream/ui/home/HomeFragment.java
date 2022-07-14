@@ -72,10 +72,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 
                 adapter.addItem(new HomeItemInfo(name, category, year, month, day, R.mipmap.ic_launcher_add));
                 gridView.setAdapter(adapter);
-
             }
         }
-
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
