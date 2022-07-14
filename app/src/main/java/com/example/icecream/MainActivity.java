@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private NotificationsFragment notificationsFragment;
     private FragmentManager fragmentManager;
     private NavigationBarView navigationBarView;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,101 +40,128 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        //최초의 Fragment 생성 (HOME)
+        bottomNavigationView = findViewById(R.id.nav_view);
+        if(homefragment == null){
+            homefragment = new HomeFragment();
+            getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, homefragment).commit();
+        }
+        //--------------------------------------------------------------------------------//
+        //homefragment가 생성되어 있다면 homeframent는 show 나머지 fragment는 hide
+        if(homefragment != null){
+            getSupportFragmentManager().beginTransaction().show(homefragment).commit();
+        }
+        if (dashboardFragment != null) {
+            getSupportFragmentManager().beginTransaction().hide(dashboardFragment).commit();
+        }
+        if (myinfoFragment != null) {
+            getSupportFragmentManager().beginTransaction().hide(myinfoFragment).commit();
+        }
+        if (notificationsFragment != null) {
+            getSupportFragmentManager().beginTransaction().hide(notificationsFragment).commit();
+        }
+        /*getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, new DashboardFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, new NotificationsFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, new MyinfoFragment()).commit();
+        getSupportFragmentManager().beginTransaction().show(homefragment).commit();
+        getSupportFragmentManager().beginTransaction().hide(dashboardFragment).commit();
+        getSupportFragmentManager().beginTransaction().hide(notificationsFragment).commit();
+        getSupportFragmentManager().beginTransaction().hide(myinfoFragment).commit();*/
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
-        /*
-        fragmentManager.beginTransaction().replace(R.id.nav_host_fragment_activity_main, homefragment).commit();
-        navigationBarView = findViewById(R.id.nav_view);
-        navigationBarView.setSelectedItemId(R.id.nav_host_fragment_activity_main);
-
-        navigationBarView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+                switch (item.getItemId()){
                     case R.id.navigation_home:
-                        if (homefragment == null) {
+                        //homefragment가 비어있으면 생성
+                        if(homefragment == null){
                             homefragment = new HomeFragment();
-                            fragmentManager.beginTransaction().add(R.id.nav_host_fragment_activity_main, homefragment).commit();
+                            getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, homefragment).commit();
                         }
-                        if (homefragment != null) {
-                            fragmentManager.beginTransaction().show(homefragment).commit();
+                        //--------------------------------------------------------------------------------//
+                        //homefragment가 생성되어 있다면 homeframent는 show 나머지 fragment는 hide
+                        if(homefragment != null){
+                            getSupportFragmentManager().beginTransaction().show(homefragment).commit();
                         }
                         if (dashboardFragment != null) {
-                            fragmentManager.beginTransaction().hide(dashboardFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(dashboardFragment).commit();
                         }
                         if (myinfoFragment != null) {
-                            fragmentManager.beginTransaction().hide(myinfoFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(myinfoFragment).commit();
                         }
                         if (notificationsFragment != null) {
-                            fragmentManager.beginTransaction().hide(notificationsFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(notificationsFragment).commit();
                         }
-                        return true;
+                        //--------------------------------------------------------------------------------//
+                        break;
+
+                    //이하 homefragment와 같은 구조
                     case R.id.navigation_dashboard:
-                        if (dashboardFragment == null) {
+                        if(dashboardFragment == null){
                             dashboardFragment = new DashboardFragment();
-                            fragmentManager.beginTransaction().add(R.id.nav_host_fragment_activity_main, dashboardFragment).commit();
+                            getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, dashboardFragment).commit();
                         }
-                        if (homefragment != null) {
-                            fragmentManager.beginTransaction().hide(homefragment).commit();
-                        }
-                        if (dashboardFragment != null) {
-                            fragmentManager.beginTransaction().show(dashboardFragment).commit();
-                        }
-                        if (myinfoFragment != null) {
-                            fragmentManager.beginTransaction().hide(myinfoFragment).commit();
-                        }
-                        if (notificationsFragment != null) {
-                            fragmentManager.beginTransaction().hide(notificationsFragment).commit();
-                        }
-                        return true;
-                    case R.id.navigation_myinfo:
-                        if (myinfoFragment == null) {
-                            myinfoFragment = new MyinfoFragment();
-                            fragmentManager.beginTransaction().add(R.id.nav_host_fragment_activity_main, myinfoFragment).commit();
-                        }
-                        if (homefragment != null) {
-                            fragmentManager.beginTransaction().hide(homefragment).commit();
+                        //--------------------------------------------------------------------------------//
+                        if(homefragment != null){
+                            getSupportFragmentManager().beginTransaction().hide(homefragment).commit();
                         }
                         if (dashboardFragment != null) {
-                            fragmentManager.beginTransaction().hide(dashboardFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(dashboardFragment).commit();
                         }
                         if (myinfoFragment != null) {
-                            fragmentManager.beginTransaction().show(myinfoFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(myinfoFragment).commit();
                         }
                         if (notificationsFragment != null) {
-                            fragmentManager.beginTransaction().hide(notificationsFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(notificationsFragment).commit();
                         }
-                        return true;
+                        //--------------------------------------------------------------------------------//
+                        break;
+
                     case R.id.navigation_notifications:
-                        if (notificationsFragment == null) {
+                        if(notificationsFragment == null){
                             notificationsFragment = new NotificationsFragment();
-                            fragmentManager.beginTransaction().add(R.id.nav_host_fragment_activity_main, notificationsFragment).commit();
+                            getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, notificationsFragment).commit();
                         }
-                        if (homefragment != null) {
-                            fragmentManager.beginTransaction().hide(homefragment).commit();
+                        //--------------------------------------------------------------------------------//
+                        if(homefragment != null){
+                            getSupportFragmentManager().beginTransaction().hide(homefragment).commit();
                         }
                         if (dashboardFragment != null) {
-                            fragmentManager.beginTransaction().hide(dashboardFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(dashboardFragment).commit();
                         }
                         if (myinfoFragment != null) {
-                            fragmentManager.beginTransaction().hide(myinfoFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(myinfoFragment).commit();
                         }
                         if (notificationsFragment != null) {
-                            fragmentManager.beginTransaction().show(notificationsFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(notificationsFragment).commit();
                         }
-                        return true;
+                        //--------------------------------------------------------------------------------//
+                        break;
+
+                    case R.id.navigation_myinfo:
+                        if(myinfoFragment == null){
+                            myinfoFragment = new MyinfoFragment();
+                            getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, myinfoFragment).commit();
+                        }
+                        //--------------------------------------------------------------------------------//
+                        if(homefragment != null){
+                            getSupportFragmentManager().beginTransaction().hide(homefragment).commit();
+                        }
+                        if (dashboardFragment != null) {
+                            getSupportFragmentManager().beginTransaction().hide(dashboardFragment).commit();
+                        }
+                        if (myinfoFragment != null) {
+                            getSupportFragmentManager().beginTransaction().hide(myinfoFragment).commit();
+                        }
+                        if (notificationsFragment != null) {
+                            getSupportFragmentManager().beginTransaction().show(notificationsFragment).commit();
+                        }
+                        //--------------------------------------------------------------------------------//
+                        break;
                 }
-                return false;
+                return true;
             }
         });
-     */
     }
 }
