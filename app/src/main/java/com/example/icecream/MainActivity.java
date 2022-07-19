@@ -63,23 +63,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        /*
-        getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, new HomeFragment()).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, new DashboardFragment()).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, new NotificationsFragment()).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_activity_main, new MyinfoFragment()).commit();
-        getSupportFragmentManager().beginTransaction().show(homefragment).commit();
-        getSupportFragmentManager().beginTransaction().hide(dashboardFragment).commit();
-        getSupportFragmentManager().beginTransaction().hide(notificationsFragment).commit();
-        getSupportFragmentManager().beginTransaction().hide(myinfoFragment).commit();
-        */
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()){
                     case R.id.navigation_home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_activity_main, homefragment).commit();
                         //homefragment가 비어있으면 생성
                         if(homefragment == null){
                             homefragment = new HomeFragment();
@@ -137,10 +127,10 @@ public class MainActivity extends AppCompatActivity {
                             getSupportFragmentManager().beginTransaction().hide(dashboardFragment).commit();
                         }
                         if (myinfoFragment != null) {
-                            getSupportFragmentManager().beginTransaction().show(myinfoFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(myinfoFragment).commit();
                         }
                         if (notificationsFragment != null) {
-                            getSupportFragmentManager().beginTransaction().hide(notificationsFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(notificationsFragment).commit();
                         }
                         //--------------------------------------------------------------------------------//
                         break;
@@ -158,10 +148,10 @@ public class MainActivity extends AppCompatActivity {
                             getSupportFragmentManager().beginTransaction().hide(dashboardFragment).commit();
                         }
                         if (myinfoFragment != null) {
-                            getSupportFragmentManager().beginTransaction().hide(myinfoFragment).commit();
+                            getSupportFragmentManager().beginTransaction().show(myinfoFragment).commit();
                         }
                         if (notificationsFragment != null) {
-                            getSupportFragmentManager().beginTransaction().show(notificationsFragment).commit();
+                            getSupportFragmentManager().beginTransaction().hide(notificationsFragment).commit();
                         }
                         //--------------------------------------------------------------------------------//
                         break;

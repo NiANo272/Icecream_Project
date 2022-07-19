@@ -2,14 +2,22 @@ package com.example.icecream.ui.home;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentManager;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -27,9 +35,7 @@ public class HomeGridViewAdapter extends BaseAdapter {
     public int getCount() { return item.size(); }
 
     @Override
-    public Object getItem(int i) {
-        return item.get(i);
-    }
+    public Object getItem(int i) { return item.get(i);  }
 
     @Override
     public long getItemId(int i) {
@@ -66,6 +72,10 @@ public class HomeGridViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context, myitem.getBuyYear() + "\n" + myitem.getBuyMonth() + "\n" + myitem.getBuyDay(), Toast.LENGTH_LONG).show();
+
+                //팝업 생성
+                //HomeItemDialog homeItemDialog = HomeItemDialog.getInstance();
+                //homeItemDialog.show(homeItemDialog.getChildFragmentManager(), HomeItemDialog.TAG_EVENT_DIALOG);
             }
         });
 

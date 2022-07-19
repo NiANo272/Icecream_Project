@@ -73,13 +73,6 @@ public class HomeAddLayout extends Activity implements View.OnClickListener{
             writeFile(name + ".txt",
                     name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity);
 
-
-            HomeFragment homeFragment = new HomeFragment();
-            Bundle bundle = new Bundle(1);
-            bundle.putString("name", name);
-            homeFragment.setArguments(bundle);
-            TextView textView = (TextView)findViewById(R.id.textView);
-            textView.setText("finish");
 /*
             Intent intent = new Intent(HomeAddLayout.this, HomeRequestLayout.class);
             intent.putExtra("name", name);

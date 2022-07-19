@@ -8,13 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.icecream.R;
@@ -37,6 +41,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     private GridView gridView;
     private HomeGridViewAdapter adapter;
 
+    int count = 0;
+    //파일 경로
+    String path = "/data/data/com.example.icecream/files/";
+    //파일 이름 저장
+    File file = new File(path);
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
@@ -47,9 +57,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         adapter = new HomeGridViewAdapter();
         gridView = (GridView) root.findViewById(R.id.field_home);
 
+        //상시 아이콘 띄우기
         //파일 읽기
-        String path = "/data/data/com.example.icecream/files/";
-        File file = new File(path);
         FilenameFilter filter = new FilenameFilter() {
             @Override
             public boolean accept(File file, String s) {
@@ -59,7 +68,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         };
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
-            for (int i = 0; i < (fileNames.length); i++) {
+            for (int i = count; i < (fileNames.length); i++) {
                 String rFile = readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
                 //읽어온 파일 나누기
                 String[] txt_split = rFile.split("\\|");
@@ -69,6 +78,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 int month = Integer.parseInt(txt_split[3]);
                 int day = Integer.parseInt(txt_split[4]);
                 //int quantity = Integer.parseInt(txt_split[5]);
+                count++;
 
                 adapter.addItem(new HomeItemInfo(name, category, year, month, day, R.mipmap.ic_launcher_add));
                 gridView.setAdapter(adapter);
@@ -91,7 +101,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
 //        gridView = (GridView) root.findViewById(R.id.field_home);
 //        adapter = new HomeGridViewAdapter();
 
-
         return root;
     }
 
@@ -107,33 +116,38 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         if(v.getId() == R.id.btn_add){ //manifests에 <activity android:name=".ui.home.HomeAddLayout" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"> 추가 필요
             HomeAddDialog homeAddDialog = HomeAddDialog.getInstance();
             homeAddDialog.show(getChildFragmentManager(), HomeAddDialog.TAG_EVENT_DIALOG);
+
+            //파일 읽기
+            FilenameFilter filter = new FilenameFilter() {
+                @Override
+                public boolean accept(File file, String s) {
+                    return s.contains(".txt");
+                }
+
+            };
+            String[] fileNames = file.list(filter);
+            if (fileNames.length > 0) {
+                for (int i = count; i < (fileNames.length); i++) {
+                    String rFile = readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
+                    //읽어온 파일 나누기
+                    String[] txt_split = rFile.split("\\|");
+                    String name = txt_split[0];
+                    String category = txt_split[1];
+                    int year = Integer.parseInt(txt_split[2]);
+                    int month = Integer.parseInt(txt_split[3]);
+                    int day = Integer.parseInt(txt_split[4]);
+                    //int quantity = Integer.parseInt(txt_split[5]);
+                    count++;
+
+                    adapter.addItem(new HomeItemInfo(name, category, year, month, day, R.mipmap.ic_launcher_add));
+                    gridView.setAdapter(adapter);
+                }
+            }
         }
         else if(v.getId() == R.id.btn_remove){
-            Bundle bundle = getArguments();
-            String fileName;
-            if(bundle != null){
-                fileName = bundle.getString("name");
-            }
-            else{
-                fileName = "apple";
-            }
-            //파일 읽기
-            String rFile = readFile("/data/data/com.example.icecream/files/" + fileName + ".txt");
-            //읽어온 파일 나누기
-            String[] txt_split = rFile.split("\\|");
-            String name = txt_split[0];
-            String category = txt_split[1];
-            int year = Integer.parseInt(txt_split[2]);
-            int month = Integer.parseInt(txt_split[3]);
-            int day = Integer.parseInt(txt_split[4]);
-            //int quantity = Integer.parseInt(txt_split[5]);
 
-            adapter.addItem(new HomeItemInfo(name, category, year, month, day, R.mipmap.ic_launcher_add));
-            gridView.setAdapter(adapter);
         }
         else if(v.getId() == R.id.btn_sort){
-
-
 
         }
         else if(v.getId() == R.id.btn_category){
