@@ -31,7 +31,7 @@ import java.util.Objects;
 
 public class HomeAddDialog extends DialogFragment implements View.OnClickListener{
 
-    public static final String TAG_EVENT_DIALOG = "dialog_event";
+    public static final String TAG_EVENT_DIALOG = "add_dialog_event";
 
     public HomeAddDialog(){}
     public static HomeAddDialog getInstance(){
