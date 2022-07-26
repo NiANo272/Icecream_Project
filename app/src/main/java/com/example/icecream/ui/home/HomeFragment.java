@@ -245,7 +245,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             });
 
             //홀리몰리
-            
+
             return view;
         }
     }
