@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,7 +30,7 @@ import java.util.Objects;
 
 public class HomeAddDialog extends DialogFragment implements View.OnClickListener{
 
-    public static final String TAG_EVENT_DIALOG = "add_dialog_event";
+    public static final String TAG_EVENT_DIALOG = "dialog_event";
 
     public HomeAddDialog(){}
     public static HomeAddDialog getInstance(){
@@ -76,6 +75,15 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
                 //정보를 txt 형태로 저장
                 writeFile(name + ".txt",
                         name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("name", name);
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+                HomeFragment homeFragment = new HomeFragment();
+                homeFragment.setArguments(bundle);
+                transaction.replace(R.id.navigation_home, homeFragment);
+                transaction.commit();
 
                 dismiss();
 

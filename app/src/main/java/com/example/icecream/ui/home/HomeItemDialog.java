@@ -20,7 +20,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class HomeItemDialog extends DialogFragment {
     public static final String TAG_EVENT_DIALOG = "item_dialog_event";
@@ -46,32 +45,28 @@ public class HomeItemDialog extends DialogFragment {
             }
         });
 
-        String info_name;
         Bundle bundle =this.getArguments();
-        if(bundle != null){
-            info_name = bundle.getString("name");
-        }
-        else
-            info_name = "apple";
+        String info_name = bundle.getString("name");
 
         TextView tv_info_name = (TextView) root.findViewById(R.id.tv_info_name);
         TextView tv_info_date = (TextView) root.findViewById(R.id.tv_info_date);
         TextView tv_info_quantity = (TextView) root.findViewById(R.id.tv_info_quantity);
         TextView tv_info_category = (TextView) root.findViewById(R.id.tv_info_category);
 
-        /*String rFile = readFile("/data/data/com.example.icecream/files/" + info_name);
+        String rFile = readFile("/data/data/com.example.icecream/files/" + info_name);
         //읽어온 파일 나누기
         String[] txt_split = rFile.split("\\|");
         String name = txt_split[0];
         String category = txt_split[1];
         int year = Integer.parseInt(txt_split[2]);
         int month = Integer.parseInt(txt_split[3]);
-        int day = Integer.parseInt(txt_split[4]);*/
+        int day = Integer.parseInt(txt_split[4]);
 
-        tv_info_name.setText(info_name);
-        //tv_info_date.setText(year+"년 "+month+"월 "+day+"일");
+        tv_info_name.setText(name);
+        tv_info_date.setText(year+"년 "+month+"월 "+day+"일");
         //tv_info_quantity.setText();
-        //tv_info_category.setText(category);
+        tv_info_category.setText(category);
+
 
         return root;
     }
