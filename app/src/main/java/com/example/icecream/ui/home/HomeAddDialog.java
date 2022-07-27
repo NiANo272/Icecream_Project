@@ -77,6 +77,9 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
                 writeFile(name + ".txt",
                         name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity);
 
+                Fragment fragment = getParentFragment();
+                fragment.onResume();
+
                 dismiss();
 
             }
