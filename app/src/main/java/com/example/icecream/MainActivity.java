@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private DashboardFragment dashboardFragment;
     private MyinfoFragment myinfoFragment;
     private NotificationsFragment notificationsFragment;
-    private FragmentManager fragmentManager;
-    private NavigationBarView navigationBarView;
     private BottomNavigationView bottomNavigationView;
 
     @Override

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -77,6 +76,7 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
                 writeFile(name + ".txt",
                         name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity);
 
+                //onResume 으로 돌아가기
                 Fragment fragment = getParentFragment();
                 fragment.onResume();
 
