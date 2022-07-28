@@ -76,14 +76,9 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
                 writeFile(name + ".txt",
                         name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity);
 
-                Bundle bundle = new Bundle();
-                bundle.putString("name", name);
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-                HomeFragment homeFragment = new HomeFragment();
-                homeFragment.setArguments(bundle);
-                transaction.replace(R.id.navigation_home, homeFragment);
-                transaction.commit();
+                //onResume 으로 돌아가기
+                Fragment fragment = getParentFragment();
+                fragment.onResume();
 
                 dismiss();
 

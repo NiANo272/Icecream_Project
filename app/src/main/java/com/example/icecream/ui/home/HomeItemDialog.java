@@ -45,7 +45,7 @@ public class HomeItemDialog extends DialogFragment {
             }
         });
 
-        Bundle bundle =this.getArguments();
+/*        Bundle bundle =this.getArguments();
         String info_name = bundle.getString("name");
 
         TextView tv_info_name = (TextView) root.findViewById(R.id.tv_info_name);
@@ -65,7 +65,7 @@ public class HomeItemDialog extends DialogFragment {
         tv_info_name.setText(name);
         tv_info_date.setText(year+"년 "+month+"월 "+day+"일");
         //tv_info_quantity.setText();
-        tv_info_category.setText(category);
+        tv_info_category.setText(category);*/
 
 
         return root;

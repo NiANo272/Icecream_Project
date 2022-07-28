@@ -2,8 +2,10 @@ package com.example.icecream.ui.home;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class HomeFragment extends Fragment implements View.OnClickListener{
@@ -57,51 +61,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         View root = binding.getRoot();
         adapter = new HomeGridViewAdapter();
         gridView = (GridView) root.findViewById(R.id.field_home);
-
-//        //상시 아이콘 띄우기
-//        //파일 읽기
-//        FilenameFilter filter = new FilenameFilter() {
-//            @Override
-//            public boolean accept(File file, String s) {
-//                return s.contains(".txt");
-//            }
-//
-//        };
-//        String[] fileNames = file.list(filter);
-//        if (fileNames.length > 0) {
-//            for (int i = count; i < (fileNames.length); i++) {
-//                String rFile = readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
-//                //읽어온 파일 나누기
-//                String[] txt_split = rFile.split("\\|");
-//                String name = txt_split[0];
-//                String category = txt_split[1];
-//                int year = Integer.parseInt(txt_split[2]);
-//                int month = Integer.parseInt(txt_split[3]);
-//                int day = Integer.parseInt(txt_split[4]);
-//                //int quantity = Integer.parseInt(txt_split[5]);
-//                count++;
-//
-//                adapter.addItem(new HomeItemInfo(name, category, year, month, day, R.mipmap.ic_launcher_add));
-//                gridView.setAdapter(adapter);
-//            }
-//            count = 0;
-//        }
-//
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-//        //버튼 선언
-//        Button btn_add = (Button) root.findViewById(R.id.btn_add);
-//        Button btn_remove = (Button) root.findViewById(R.id.btn_remove);
-//        Button btn_sort = (Button) root.findViewById(R.id.btn_sort);
-//        Button btn_category = (Button) root.findViewById(R.id.btn_category);
-//        //버튼 onclicklistener 선언
-//        btn_add.setOnClickListener(this);
-//        btn_remove.setOnClickListener(this);
-//        btn_sort.setOnClickListener(this);
-//        btn_category.setOnClickListener(this);
-//
-////        gridView = (GridView) root.findViewById(R.id.field_home);
-////        adapter = new HomeGridViewAdapter();
 
         return root;
     }
@@ -154,9 +113,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         btn_sort.setOnClickListener(this);
         btn_category.setOnClickListener(this);
 
-//        gridView = (GridView) root.findViewById(R.id.field_home);
-//        adapter = new HomeGridViewAdapter();
-
     }
 
     @Override
@@ -171,34 +127,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         if(v.getId() == R.id.btn_add){ //manifests에 <activity android:name=".ui.home.HomeAddLayout" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"> 추가 필요
             HomeAddDialog homeAddDialog = HomeAddDialog.getInstance();
             homeAddDialog.show(getChildFragmentManager(), HomeAddDialog.TAG_EVENT_DIALOG);
-
-            //파일 읽기
-//            FilenameFilter filter = new FilenameFilter() {
-//                @Override
-//                public boolean accept(File file, String s) {
-//                    return s.contains(".txt");
-//                }
-//
-//            };
-//            String[] fileNames = file.list(filter);
-//            if (fileNames.length > 0) {
-//                for (int i = count; i < (fileNames.length); i++) {
-//                    String rFile = readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
-//                    //읽어온 파일 나누기
-//                    String[] txt_split = rFile.split("\\|");
-//                    String name = txt_split[0];
-//                    String category = txt_split[1];
-//                    int year = Integer.parseInt(txt_split[2]);
-//                    int month = Integer.parseInt(txt_split[3]);
-//                    int day = Integer.parseInt(txt_split[4]);
-//                    //int quantity = Integer.parseInt(txt_split[5]);
-//                    count++;
-//
-//                    adapter.addItem(new HomeItemInfo(name, category, year, month, day, R.mipmap.ic_launcher_add));
-//                    gridView.setAdapter(adapter);
-//                }
-
-//            }
         }
         else if(v.getId() == R.id.btn_remove){
 
@@ -270,7 +198,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                     }
                 }
             }
-
 
         }
         else if(v.getId() == R.id.btn_category){
@@ -349,14 +276,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 public void onClick(View view) {
                     //Toast.makeText(context, myitem.getBuyYear() + "\n" + myitem.getBuyMonth() + "\n" + myitem.getBuyDay(), Toast.LENGTH_LONG).show();
 
-                    //데이터 전달
-                    HomeItemDialog to_homeItemDialog = new HomeItemDialog();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", myitem.getName());
-                    to_homeItemDialog.setArguments(bundle);
-                    //FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-
-
                     //팝업 생성
                     HomeItemDialog homeItemDialog = HomeItemDialog.getInstance();
                     homeItemDialog.show(getChildFragmentManager(), HomeItemDialog.TAG_EVENT_DIALOG);
@@ -366,6 +285,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             //홀리몰리
 
             return view;
+
         }
     }
 
