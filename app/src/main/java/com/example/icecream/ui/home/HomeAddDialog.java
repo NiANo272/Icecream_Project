@@ -74,7 +74,7 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
 
                 //정보를 txt 형태로 저장
                 writeFile(name + ".txt",
-                        name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity);
+                        name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity + "|null");
 
                 //onResume 으로 돌아가기
                 Fragment fragment = getParentFragment();
@@ -110,24 +110,5 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
         catch (IOException e){
             e.printStackTrace();
         }
-    }
-
-    public String readFile(String fileName){
-        StringBuffer strBuffer = new StringBuffer();
-        try{
-            InputStream iStream = new FileInputStream(fileName);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iStream));
-            String line = "";
-            while((line = bufferedReader.readLine()) != null)
-                strBuffer.append(line + "\n");
-            bufferedReader.close();
-            iStream.close();
-        }
-
-        catch (IOException e){
-            e.printStackTrace();
-            return "";
-        }
-        return strBuffer.toString();
     }
 }
