@@ -1,5 +1,6 @@
 package com.example.icecream;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Switch;
@@ -29,16 +30,17 @@ public class MainActivity extends AppCompatActivity {
     private DashboardFragment dashboardFragment;
     private MyinfoFragment myinfoFragment;
     private NotificationsFragment notificationsFragment;
-    private FragmentManager fragmentManager;
-    private NavigationBarView navigationBarView;
     private BottomNavigationView bottomNavigationView;
 
+    public static Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        context = getApplicationContext();
 
         //최초의 Fragment 생성 (HOME)
         bottomNavigationView = findViewById(R.id.nav_view);
