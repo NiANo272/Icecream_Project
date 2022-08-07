@@ -74,7 +74,7 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
 
                 //정보를 txt 형태로 저장
                 writeFile(name + ".txt",
-                        name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity + "|null");
+                        name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity);
 
                 //onResume 으로 돌아가기
                 Fragment fragment = getParentFragment();
