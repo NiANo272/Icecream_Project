@@ -20,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -65,6 +67,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         return root;
     }
 
+    //실시간 동기화
     @Override
     public void onResume() {
         super.onResume();
@@ -79,7 +82,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             public boolean accept(File file, String s) {
                 return s.contains(".txt");
             }
-
         };
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
@@ -198,7 +200,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                     }
                 }
             }
-
         }
         else if(v.getId() == R.id.btn_category){
 
@@ -274,10 +275,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Toast.makeText(context, myitem.getBuyYear() + "\n" + myitem.getBuyMonth() + "\n" + myitem.getBuyDay(), Toast.LENGTH_LONG).show();
 
                     //팝업 생성
                     HomeItemDialog homeItemDialog = HomeItemDialog.getInstance();
+                    homeItemDialog.setNameText(myitem.getName());
                     homeItemDialog.show(getChildFragmentManager(), HomeItemDialog.TAG_EVENT_DIALOG);
                 }
             });

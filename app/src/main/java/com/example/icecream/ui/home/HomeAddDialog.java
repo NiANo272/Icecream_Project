@@ -111,23 +111,4 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
             e.printStackTrace();
         }
     }
-
-    public String readFile(String fileName){
-        StringBuffer strBuffer = new StringBuffer();
-        try{
-            InputStream iStream = new FileInputStream(fileName);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iStream));
-            String line = "";
-            while((line = bufferedReader.readLine()) != null)
-                strBuffer.append(line + "\n");
-            bufferedReader.close();
-            iStream.close();
-        }
-
-        catch (IOException e){
-            e.printStackTrace();
-            return "";
-        }
-        return strBuffer.toString();
-    }
 }
