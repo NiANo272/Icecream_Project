@@ -5,22 +5,25 @@ import java.util.Calendar;
 public class SampleData {
     private String dday;
     private String foodname;
-    private String expirydate;
+//    private String expirydate;
 
     int year,month,day,eyear,emonth,eday;
     int resultday = 0;
 
     long today,expiryday;
 
-    public SampleData(String foodname, String expirydate){
+    public SampleData(String foodname, int eyear, int emonth, int eday){
 //        this.dday = dday;
         this.foodname = foodname;
-        this.expirydate = expirydate;
+        this.eyear = eyear;
+        this.emonth = emonth;
+        this.eday = eday;
+//        this.expirydate = expirydate;
     }
 
     public String getDday()
     {
-        int remaindays = calculateDday(this.expirydate);
+        int remaindays = calculateDday(this.eyear,this.emonth,this.eday);
 
         if (remaindays>0){
             dday = String.format("D-%d",remaindays);
@@ -41,10 +44,15 @@ public class SampleData {
 
     public String getExpirydate()
     {
-        return this.expirydate;
+        String expiryyear = Integer.toString(eyear);
+        String expirymonth = Integer.toString(emonth);
+        String expiryday = Integer.toString(eday);
+
+        String expirydate = expiryyear + "-"+expirymonth + "-" + expiryday;
+        return expirydate;
     }
 
-    public int calculateDday(String expirydate){
+    public int calculateDday(int eyear, int emonth, int eday){
 
         // today date
         Calendar calendar = Calendar.getInstance();
@@ -56,12 +64,12 @@ public class SampleData {
 
 
         // get expirydate
-        String[] date_split = expirydate.split("\\.");
+//        String[] date_split = expirydate.split("\\.");
 
         //String 형식에서 int형으로 바꾸기 (for HomeItemInfo 형식에 맞춤)
-        eyear = Integer.parseInt(date_split[0]);
-        emonth = Integer.parseInt(date_split[1]);
-        eday = Integer.parseInt(date_split[2]);
+//        eyear = Integer.parseInt(date_split[0]);
+//        emonth = Integer.parseInt(date_split[1]);
+//        eday = Integer.parseInt(date_split[2]);
 
         Calendar eCalendar = Calendar.getInstance();
         eCalendar.set(eyear,emonth-1,eday);
