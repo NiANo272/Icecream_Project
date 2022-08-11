@@ -26,6 +26,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.icecream.FunFunc;
 import com.example.icecream.R;
 import com.example.icecream.databinding.FragmentHomeBinding;
 
@@ -53,6 +54,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
     String path = "/data/data/com.example.icecream/files/";
     //파일 이름 저장
     File file = new File(path);
+
+    //자주쓰는 function
+    FunFunc fun = new FunFunc();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -86,7 +90,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         String[] fileNames = file.list(filter);
         if (fileNames.length > 0) {
             for (int i = count; i < (fileNames.length); i++) {
-                String rFile = readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
+                String rFile = fun.readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
                 //읽어온 파일 나누기
                 String[] txt_split = rFile.split("\\|");
                 String name = txt_split[0];
@@ -150,7 +154,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 String[] fileNames = file.list(filter);
                 if (fileNames.length > 0) {
                     for (int i = count; i < (fileNames.length); i++) {
-                        String rFile = readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
+                        String rFile = fun.readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
                         //읽어온 파일 나누기
                         String[] txt_split = rFile.split("\\|");
                         String name = txt_split[0];
@@ -184,7 +188,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
                 Arrays.sort(fileNames);
                 if (fileNames.length > 0) {
                     for (int i = count; i < (fileNames.length); i++) {
-                        String rFile = readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
+                        String rFile = fun.readFile("/data/data/com.example.icecream/files/" + fileNames[i]);
                         //읽어온 파일 나누기
                         String[] txt_split = rFile.split("\\|");
                         String name = txt_split[0];
@@ -204,25 +208,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         else if(v.getId() == R.id.btn_category){
 
         }
-    }
-
-    public String readFile(String fileName){
-        StringBuffer strBuffer = new StringBuffer();
-        try{
-            InputStream iStream = new FileInputStream(fileName);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iStream));
-            String line = "";
-            while((line = bufferedReader.readLine()) != null)
-                strBuffer.append(line + "\n");
-            bufferedReader.close();
-            iStream.close();
-        }
-
-        catch (IOException e){
-            e.printStackTrace();
-            return "";
-        }
-        return strBuffer.toString();
     }
 
     public class HomeGridViewAdapter extends BaseAdapter {

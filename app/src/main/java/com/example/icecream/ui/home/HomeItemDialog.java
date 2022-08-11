@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentResultListener;
 
+import com.example.icecream.FunFunc;
 import com.example.icecream.R;
 
 import org.w3c.dom.Text;
@@ -33,6 +34,8 @@ public class HomeItemDialog extends DialogFragment{
     private TextView tv_info_date;
     private TextView tv_info_category;
     private TextView tv_info_quantity;
+
+    FunFunc fun;
 
     public static HomeItemDialog getInstance(){
         HomeItemDialog homeItemDialog = new HomeItemDialog();
@@ -61,7 +64,7 @@ public class HomeItemDialog extends DialogFragment{
         String path = "/data/data/com.example.icecream/files/";
         //파일 이름 저장
 
-        String rFile = readFile("/data/data/com.example.icecream/files/" + name + ".txt");
+        String rFile = fun.readFile("/data/data/com.example.icecream/files/" + name + ".txt");
         //읽어온 파일 나누기
         String[] txt_split = rFile.split("\\|");
         String itemName = txt_split[0];
@@ -83,23 +86,4 @@ public class HomeItemDialog extends DialogFragment{
        name = text;
     }
 
-
-    public String readFile(String fileName){
-        StringBuffer strBuffer = new StringBuffer();
-        try{
-            InputStream iStream = new FileInputStream(fileName);
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(iStream));
-            String line = "";
-            while((line = bufferedReader.readLine()) != null)
-                strBuffer.append(line + "\n");
-            bufferedReader.close();
-            iStream.close();
-        }
-
-        catch (IOException e){
-            e.printStackTrace();
-            return "";
-        }
-        return strBuffer.toString();
-    }
 }

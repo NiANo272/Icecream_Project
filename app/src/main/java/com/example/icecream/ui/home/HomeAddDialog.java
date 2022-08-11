@@ -17,6 +17,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.icecream.FunFunc;
 import com.example.icecream.R;
 
 import java.io.BufferedReader;
@@ -31,6 +32,8 @@ import java.util.Objects;
 public class HomeAddDialog extends DialogFragment implements View.OnClickListener{
 
     public static final String TAG_EVENT_DIALOG = "dialog_event";
+
+    FunFunc fun;
 
     public HomeAddDialog(){}
     public static HomeAddDialog getInstance(){
@@ -73,8 +76,8 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
                 String category = et_categroy.getText().toString();
 
                 //정보를 txt 형태로 저장
-                writeFile(name + ".txt",
-                        name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity);
+                fun.writeFile(name + ".txt",
+                        name + "|" + category + "|" + year + "|" + month + "|" + day + "|" + quantity + "|null");
 
                 //onResume 으로 돌아가기
                 Fragment fragment = getParentFragment();
@@ -98,17 +101,4 @@ public class HomeAddDialog extends DialogFragment implements View.OnClickListene
 
     }
 
-    private void writeFile(String fileName, String msg){
-        try{
-            OutputStreamWriter oStreamWriter = new OutputStreamWriter(getContext().openFileOutput(fileName, Context.MODE_PRIVATE));
-            oStreamWriter.write(msg);
-            oStreamWriter.close();
-        }
-        catch (FileNotFoundException e){
-            e.printStackTrace();
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-    }
 }
